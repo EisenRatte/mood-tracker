@@ -1,0 +1,3 @@
+DB User erstellen:
+
+db.createUser({user: "mood", pwd:"moodPWD", roles:[{role="dbOwner", db:"mood"}]})
