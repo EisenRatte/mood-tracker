@@ -1,0 +1,9 @@
+body{
+    background-color: #363636;
+}
+body, input{
+    font-family: "Trebuchet MS", Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #e6e6e6;
+}

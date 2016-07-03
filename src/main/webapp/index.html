@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Highcharts Example</title>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" src="/highcharts/js/themes/dark-unica.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+          crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+          crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+            integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script type="text/javascript">
+        $(function () {
+            // Get the CSV and create the chart
+            $.getJSON('/chartData/', function (data) {
+
+                $('#graph').highcharts({
+                    title: {
+                        text: 'historic mood data'
+                    },
+
+                    xAxis: {
+                        categories: data.categories
+                    },
+
+                    chart: {
+                        zoomType: 'x',
+                        type: 'line'
+                    },
+
+                    yAxis: [{ // left y axis
+                        title: {
+                            text: null
+                        },
+                        labels: {
+                            align: 'left',
+                            x: 3,
+                            y: 16,
+                            format: '{value:.,0f}'
+                        },
+                        showFirstLabel: false
+                    }, { // right y axis
+                        linkedTo: 0,
+                        gridLineWidth: 0,
+                        opposite: true,
+                        title: {
+                            text: null
+                        },
+                        labels: {
+                            align: 'right',
+                            x: -3,
+                            y: 16,
+                            format: '{value:.,0f}'
+                        },
+                        showFirstLabel: false
+                    }],
+
+                    legend: {
+                        align: 'left',
+                        verticalAlign: 'bottom',
+                        y: 20,
+                        floating: true,
+                        borderWidth: 0
+                    },
+
+                    tooltip: {
+                        shared: true,
+                        crosshairs: true
+                    },
+
+                    plotOptions: {
+                        series: {
+                            cursor: 'pointer',
+                            point: {
+                                events: {
+                                    click: function (e) {
+                                        hs.htmlExpand(null, {
+                                            pageOrigin: {
+                                                x: e.pageX || e.clientX,
+                                                y: e.pageY || e.clientY
+                                            },
+                                            headingText: this.series.name,
+                                            maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
+                                            this.y + ' visits',
+                                            width: 200
+                                        });
+                                    }
+                                }
+                            },
+                            marker: {
+                                lineWidth: 1,
+                                enabled: false
+                            }
+                        }
+                    },
+
+                    series: data.series
+                });
+            });
+
+        });
+    </script>
+</head>
+<body>
+
+
+<div id="graph" style="min-width: 310px; height: 600px; margin: 0 auto 50px auto"></div>
+<div class="container-fluid">
+    <div id="" class="row">
+        <h2>Enter your weekly mood</h2>
+        <form action="moodState/add" method="post">
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                <label for="peace">Peace</label>
+                <input type="number" class="form-control" id="peace" min="0" max="100" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                <label for="pleasure">Pleasure</label>
+                <input type="number" class="form-control" id="pleasure" min="0" max="100" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                <label for="family">Family</label>
+                <input type="number" class="form-control" id="family" min="0" max="100" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                <label for="friends">Friends</label>
+                <input type="number" class="form-control" id="friends" min="0" max="100" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                <label for="fitness">Fitness</label>
+                <input type="number" class="form-control" id="fitness" min="0" max="100" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                <label for="finance">Finance</label>
+                <input type="number" class="form-control" id="finance" min="0" max="100" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                <label for="education">Education</label>
+                <input type="number" class="form-control" id="education" min="0" max="100" required>
+            </div>
+            <div class="form-group col-lg-3 col-md-4 col-sm-6 col-xs-12" >
+                <label for="company">Company</label>
+                <input type="number" class="form-control" id="company" min="0" max="100" required>
+            </div>
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
