@@ -7,6 +7,7 @@ import de.ratdev.mood_tracker.persistance.repository.MoodStateWeekRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -29,15 +30,16 @@ public class TestDataResource {
     }
 
     @RequestMapping(path = "/create", method = RequestMethod.GET)
-    public void generateTestData(){
+    public void generateTestData(@RequestParam("amountWeek") long amountWeek,
+                                 @RequestParam("amountStates") long amountStates){
         clearData();
         ArrayList<MoodStateWeek> weeks = new ArrayList<>();
-        for (int i = 0; i < 52; i++) {
+        for (int i = 0; i < amountWeek; i++) {
             MoodStateWeek week = new MoodStateWeek();
             week.setId("2016-"+i);
 
             week.setSingleStates(new ArrayList<>());
-            for (int j = 0; j < 12; j++) {
+            for (int j = 0; j < amountStates; j++) {
                 MoodState moodState = new MoodState();
                 fillMoodState(moodState);
                 week.getSingleStates().add(moodState);

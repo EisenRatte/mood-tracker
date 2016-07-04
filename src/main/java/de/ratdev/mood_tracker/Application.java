@@ -7,23 +7,20 @@ import com.mongodb.WriteConcern;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.MongoExceptionTranslator;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 @SpringBootApplication
 @EnableMongoRepositories
-public class DemoApplication {
+public class Application{
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 	/*
