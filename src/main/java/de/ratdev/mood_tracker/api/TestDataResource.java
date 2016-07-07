@@ -24,12 +24,12 @@ public class TestDataResource {
     @Autowired
     private MoodStateWeekRepository moodStateWeekRepository;
 
-    @RequestMapping(path = "/clear", method = RequestMethod.GET)
+    //@RequestMapping(path = "/clear", method = RequestMethod.GET)
     public void clearData(){
         moodStateWeekRepository.deleteAll();
     }
 
-    @RequestMapping(path = "/create", method = RequestMethod.GET)
+    //@RequestMapping(path = "/create", method = RequestMethod.GET)
     public void generateTestData(@RequestParam("amountWeek") long amountWeek,
                                  @RequestParam("amountStates") long amountStates){
         clearData();
@@ -47,7 +47,7 @@ public class TestDataResource {
 
             MoodStateAggregation aggregation = new MoodStateAggregation();
             fillMoodState(aggregation);
-            aggregation.setCount(randomBetween(8, 12));
+            aggregation.setCount(amountStates);
 
             week.setAggregation(aggregation);
 

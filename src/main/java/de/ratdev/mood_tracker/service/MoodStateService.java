@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
+import java.util.stream.Collectors;
 
 /**
  * Created by EisenRatte on 03.07.2016.
@@ -36,30 +39,30 @@ public class MoodStateService {
     }
 
     private void recalculateWeekMood(MoodStateWeek week){
-        //TODO translate to streams or with mongo aggregation
-        MoodStateAggregation aggregation = new MoodStateAggregation();
-        for (MoodState moodState : week.getSingleStates()) {
-            aggregation.setPeace(aggregation.getPeace()+moodState.getPeace());
-            aggregation.setPleasure(aggregation.getPleasure()+moodState.getPleasure());
-            aggregation.setFamily(aggregation.getFamily()+moodState.getFamily());
-            aggregation.setFriends(aggregation.getFriends()+moodState.getFriends());
-            aggregation.setFitness(aggregation.getFitness()+moodState.getFitness());
-            aggregation.setFinance(aggregation.getFinance()+moodState.getFinance());
-            aggregation.setEducation(aggregation.getEducation()+moodState.getEducation());
-            aggregation.setCompany(aggregation.getCompany()+moodState.getCompany());
-            aggregation.setCount(aggregation.getCount()+1);
-        }
 
-        aggregation.setPeace(aggregation.getPeace()/aggregation.getCount());
-        aggregation.setPleasure(aggregation.getPleasure()/aggregation.getCount());
-        aggregation.setFamily(aggregation.getFamily()/aggregation.getCount());
-        aggregation.setFriends(aggregation.getFriends()/aggregation.getCount());
-        aggregation.setFitness(aggregation.getFitness()/aggregation.getCount());
-        aggregation.setFinance(aggregation.getFinance()/aggregation.getCount());
-        aggregation.setEducation(aggregation.getEducation()/aggregation.getCount());
-        aggregation.setCompany(aggregation.getCompany()/aggregation.getCount());
+        MoodStateAggregation aggregation = new MoodStateAggregation();
+
+        aggregation.setPeace(getSingleAverage(week, MoodState::getPeace));
+        aggregation.setPleasure(getSingleAverage(week, MoodState::getPleasure));
+        aggregation.setFamily(getSingleAverage(week, MoodState::getFamily));
+        aggregation.setFriends(getSingleAverage(week, MoodState::getFriends));
+        aggregation.setFitness(getSingleAverage(week, MoodState::getFitness));
+        aggregation.setFinance(getSingleAverage(week, MoodState::getFinance));
+        aggregation.setEducation(getSingleAverage(week, MoodState::getEducation));
+        aggregation.setCompany(getSingleAverage(week, MoodState::getCompany));
+
+        aggregation.setCount(getCount(week));
 
         week.setAggregation(aggregation);
+    }
+
+    private long getCount(MoodStateWeek week) {
+        return week.getSingleStates().stream().count();
+    }
+
+    private double getSingleAverage(MoodStateWeek week, ToDoubleFunction<MoodState> valueExtractor){
+        return week.getSingleStates().stream()
+                .collect(Collectors.averagingDouble(valueExtractor));
     }
 
     private String getCurrentWeekMoodId(){

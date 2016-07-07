@@ -1,127 +1,111 @@
 package de.ratdev.mood_tracker.persistance.model;
 
-import org.joda.time.DateTime;
-import org.springframework.data.annotation.CreatedDate;
-
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 /**
  * Created by EisenRatte on 02.07.2016.
  */
-//@Document
 public class MoodState {
 
-    //@Id
-    //private String id;
 
     @Max(100)
     @Min(0)
-    private int peace;
+    private double peace;
 
     @Max(100)
     @Min(0)
-    private int pleasure;
+    private double pleasure;
 
     @Max(100)
     @Min(0)
-    private int family;
+    private double family;
 
     @Max(100)
     @Min(0)
-    private int friends;
+    private double friends;
 
     @Max(100)
     @Min(0)
-    private int fitness;
+    private double fitness;
 
     @Max(100)
     @Min(0)
-    private int finance;
+    private double finance;
 
     @Max(100)
     @Min(0)
-    private int education;
+    private double education;
 
     @Max(100)
     @Min(0)
-    private int company;
+    private double company;
 
-    //FIXME is not filled automatically
-    @CreatedDate
-    private DateTime createdAt;
 
-    public int getPeace() {
+    public double getPeace() {
         return peace;
     }
 
-    public void setPeace(int peace) {
+    public void setPeace(double peace) {
         this.peace = peace;
     }
 
-    public int getPleasure() {
+    public double getPleasure() {
         return pleasure;
     }
 
-    public void setPleasure(int pleasure) {
+    public void setPleasure(double pleasure) {
         this.pleasure = pleasure;
     }
 
-    public int getFamily() {
+    public double getFamily() {
         return family;
     }
 
-    public void setFamily(int family) {
+    public void setFamily(double family) {
         this.family = family;
     }
 
-    public int getFriends() {
+    public double getFriends() {
         return friends;
     }
 
-    public void setFriends(int friends) {
+    public void setFriends(double friends) {
         this.friends = friends;
     }
 
-    public int getFitness() {
+    public double getFitness() {
         return fitness;
     }
 
-    public void setFitness(int fitness) {
+    public void setFitness(double fitness) {
         this.fitness = fitness;
     }
 
-    public int getFinance() {
+    public double getFinance() {
         return finance;
     }
 
-    public void setFinance(int finance) {
+    public void setFinance(double finance) {
         this.finance = finance;
     }
 
-    public int getEducation() {
+    public double getEducation() {
         return education;
     }
 
-    public void setEducation(int education) {
+    public void setEducation(double education) {
         this.education = education;
     }
 
-    public int getCompany() {
+    public double getCompany() {
         return company;
     }
 
-    public void setCompany(int company) {
+    public void setCompany(double company) {
         this.company = company;
     }
 
-    public DateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(DateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 
     @Override
     public String toString() {
@@ -134,7 +118,6 @@ public class MoodState {
                 ", finance=" + finance +
                 ", education=" + education +
                 ", company=" + company +
-                ", createdAt=" + createdAt +
                 '}';
     }
 }

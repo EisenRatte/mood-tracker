@@ -5,13 +5,13 @@ package de.ratdev.mood_tracker.persistance.model;
  */
 public class MoodStateAggregation extends MoodState{
 
-    private int count;
+    private long count;
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 }

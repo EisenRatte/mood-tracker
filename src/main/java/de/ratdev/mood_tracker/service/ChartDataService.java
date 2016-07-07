@@ -54,18 +54,17 @@ public class ChartDataService {
                 aggregateSingleMoodSeriesData(moodStateWeeks, MoodStateAggregation::getFinance, "Finance"),
                 aggregateSingleMoodSeriesData(moodStateWeeks, MoodStateAggregation::getEducation, "Education"),
                 aggregateSingleMoodSeriesData(moodStateWeeks, MoodStateAggregation::getCompany, "Company"),
-                aggregateSingleMoodSeriesData(moodStateWeeks, MoodStateAggregation::getCount, "Count")
+                aggregateSingleMoodSeriesData(moodStateWeeks, moodStateAggregation -> (double) moodStateAggregation.getCount(), "Count")
         };
     }
 
     private Series aggregateSingleMoodSeriesData(List<MoodStateWeek> moodStateWeeks,
-                                                 Function<MoodStateAggregation, Integer> mood,
+                                                 Function<MoodStateAggregation, Double> mood,
                                                  String seriesName) {
-        int[] moodData = moodStateWeeks.stream()
+        Double[] moodData = moodStateWeeks.stream()
                 .map(MoodStateWeek::getAggregation)
                 .map(mood)
-                .mapToInt(Integer::intValue)
-                .toArray();
+                .toArray(Double[]::new);
         return new Series(seriesName, moodData);
     }
 

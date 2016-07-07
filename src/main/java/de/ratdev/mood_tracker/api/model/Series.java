@@ -6,12 +6,12 @@ package de.ratdev.mood_tracker.api.model;
 public class Series {
 
     private String name;
-    private int[] data;
+    private Double[] data;
 
     public Series() {
     }
 
-    public Series(String name, int[] data) {
+    public Series(String name, Double[] data) {
         this.name = name;
         this.data = data;
     }
@@ -24,11 +24,11 @@ public class Series {
         this.name = name;
     }
 
-    public int[] getData() {
+    public Double[] getData() {
         return data;
     }
 
-    public void setData(int[] data) {
+    public void setData(Double[] data) {
         this.data = data;
     }
 }
